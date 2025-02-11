@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutter_dash/flutter_dash.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:external_app_launcher/external_app_launcher.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -130,60 +130,22 @@ class SocialsIcons extends StatelessWidget {
       children: [
         FlutterSocialButton(
           onTap: () async {
-            const facebookUrl = 'https://www.facebook.com';
-            if (await canLaunchUrl(Uri.parse(facebookUrl))) {
-              await launchUrl(Uri.parse(facebookUrl));
-            } else {
-              throw 'Could not launch $facebookUrl';
-            }
+            await LaunchApp.openApp(
+              androidPackageName: 'com.facebook.katana',
+              iosUrlScheme: 'fb://',
+              openStore: true,
+            );
           },
           mini: true,
           buttonType: ButtonType.facebook,
         ),
         FlutterSocialButton(
           onTap: () async {
-            const linkedinUrl = 'https://www.linkedin.com';
-            if (await canLaunchUrl(Uri.parse(linkedinUrl))) {
-              await launchUrl(Uri.parse(linkedinUrl));
-            } else {
-              throw 'Could not launch $linkedinUrl';
-            }
-          },
-          mini: true,
-          buttonType: ButtonType.linkedin,
-        ),
-        FlutterSocialButton(
-          onTap: () async {
-            const twitterUrl = 'https://www.x.com';
-            if (await canLaunchUrl(Uri.parse(twitterUrl))) {
-              await launchUrl(Uri.parse(twitterUrl));
-            } else {
-              throw 'Could not launch $twitterUrl';
-            }
-          },
-          mini: true,
-          buttonType: ButtonType.twitter,
-        ),
-        FlutterSocialButton(
-          onTap: () async {
-            const instagramUrl = 'https://www.instagram.com';
-            if (await canLaunchUrl(Uri.parse(instagramUrl))) {
-              await launchUrl(Uri.parse(instagramUrl));
-            } else {
-              throw 'Could not launch $instagramUrl';
-            }
-          },
-          mini: true,
-          buttonType: ButtonType.instagram,
-        ),
-        FlutterSocialButton(
-          onTap: () async {
-            const phoneNumber = 'tel:+2331234567';
-            if (await canLaunchUrl(Uri.parse(phoneNumber))) {
-              await launchUrl(Uri.parse(phoneNumber));
-            } else {
-              throw 'Could not launch $phoneNumber';
-            }
+            await LaunchApp.openApp(
+              androidPackageName: 'com.android.dialer',
+              iosUrlScheme: 'tel://+23312345678',
+              openStore: false,
+            );
           },
           mini: true,
           buttonType: ButtonType.phone,

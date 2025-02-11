@@ -9,10 +9,6 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Row(
           children: [
-            // Icon(
-            //   Icons.home,
-            //   size: 30,
-            // ),
             SizedBox(width: 8),
             Text('Home'),
           ],
@@ -23,21 +19,31 @@ class HomePage extends StatelessWidget {
         ),
         toolbarHeight: 75,
       ),
+      // child: ListView(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       body: ListView(
         children: const [
           SizedBox(height: 20),
           Initial(),
           SizedBox(
-            height: 250,
-            child: ImageSliderScreen(),
+            height: 100,
+            child: ButtonHeading(),
           ),
           SizedBox(
             height: 250,
             child: ImageSliderScreen(),
           ),
+          SizedBox(
+            height: 70,
+            child: Categories(),
+          ),
+          SizedBox(
+            child: CatCard(),
+          )
         ],
       ),
     );
+    // );
   }
 }
 
@@ -47,34 +53,110 @@ class Initial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.greenAccent,
-      height: 100,
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color.fromARGB(255, 103, 196, 250),
-            Color.fromARGB(255, 217, 213, 226)
-          ],
-          begin: Alignment.bottomRight,
-          end: Alignment.topLeft,
+        // color: Colors.greenAccent,
+        // height: 100,
+        // padding: const EdgeInsets.all(20),
+        // margin: const EdgeInsets.all(10),
+        // decoration: BoxDecoration(
+        //   gradient: const LinearGradient(
+        //     colors: [
+        //       Color.fromARGB(255, 103, 196, 250),
+        //       Color.fromARGB(255, 217, 213, 226)
+        //     ],
+        //     begin: Alignment.bottomRight,
+        //     end: Alignment.topLeft,
+        //   ),
+        //   borderRadius: BorderRadius.circular(10.0),
+        //   border: Border.all(
+        //     color: const Color.fromARGB(255, 166, 207, 187),
+        //     width: 1,
+        //   ),
+        // ),
+        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4.0),
+        alignment: Alignment.centerLeft,
+        child: const Text(
+          'Hello\n'
+          'John Doe',
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.black,
+            fontFamily: 'Courier',
+            fontWeight: FontWeight.bold,
+          ),
+        ));
+  }
+}
+
+class ButtonHeading extends StatelessWidget {
+  const ButtonHeading({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          height: 50,
+          width: 150,
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Color.fromARGB(255, 103, 196, 250),
+                Color.fromARGB(255, 217, 213, 226)
+              ],
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+            ),
+            borderRadius: BorderRadius.circular(20.0),
+            // border: Border.all(
+            //   color: const Color.fromARGB(255, 166, 207, 187),
+            //   width: 1,
+            // ),
+          ),
+          child: const Center(
+              child: Text(
+            'Overview',
+            style: TextStyle(
+              fontSize: 13,
+              color: Colors.white,
+              fontFamily: 'Courier',
+              fontWeight: FontWeight.bold,
+            ),
+          )),
         ),
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: const Color.fromARGB(255, 166, 207, 187),
-          width: 1,
+        Container(
+          height: 50,
+          width: 150,
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            //   gradient: const LinearGradient(
+            //     colors: [
+            //       Color.fromARGB(255, 103, 196, 250),
+            //       Color.fromARGB(255, 217, 213, 226)
+            //     ],
+            //     begin: Alignment.bottomRight,
+            //     end: Alignment.topLeft,
+            //   ),
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(
+              color: const Color.fromARGB(255, 166, 207, 187),
+              width: 1,
+            ),
+          ),
+          child: const Center(
+              child: Text(
+            'Productivity',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+              fontFamily: 'Courier',
+              fontWeight: FontWeight.bold,
+            ),
+          )),
         ),
-      ),
-      child: const Center(
-          child: Text(
-        'Welcome',
-        style: TextStyle(
-          fontSize: 30,
-          color: Colors.white,
-          fontFamily: 'Courier',
-        ),
-      )),
+      ],
     );
   }
 }
@@ -161,3 +243,108 @@ class _ImagesSliderScreenState extends State<ImageSliderScreen> {
     );
   }
 }
+
+class Categories extends StatelessWidget {
+  const Categories({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4.0),
+        alignment: Alignment.centerLeft,
+        child: const Text(
+          'Categories',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.black,
+            fontFamily: 'Courier',
+            fontWeight: FontWeight.bold,
+          ),
+        ));
+  }
+}
+class CatCard extends StatelessWidget {
+  const CatCard({super.key});
+  @override
+  Widget build(BuildContext context) {
+     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 22.0),
+      child: Transform.translate(
+      offset: const Offset(0, -10),
+      child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+            child: buildCard( 
+                "Books")
+                ),
+        const SizedBox(width: 10),
+        Expanded(
+            child: buildCard(
+                "Videos")
+                ),
+      ],
+      ),
+      ),
+    );
+  }
+
+    Widget buildCard(String title) {
+      return Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        elevation: 5,
+        child: Stack(
+          children: [
+            // ClipRRect(
+              
+            //   borderRadius: BorderRadius.circular(15),
+            //   child: Image.network(
+            //     imagePath,
+            //     fit: BoxFit.cover,
+            //     width: double.infinity,
+            //     height: 150,
+            //   ),
+            // ),
+            Container(
+              width: double.infinity,
+              height: 150,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Color.fromARGB(255, 103, 196, 250),
+                Color.fromARGB(255, 217, 213, 226)
+              ],
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+            ),
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                
+                children: [
+                  Icon(Icons.book, color: Colors.red),
+                  Text(
+                    title,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.favorite, color: Colors.red),
+                      Icon(Icons.share, color: Colors.white),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }

@@ -53,30 +53,10 @@ class Initial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // color: Colors.greenAccent,
-        // height: 100,
-        // padding: const EdgeInsets.all(20),
-        // margin: const EdgeInsets.all(10),
-        // decoration: BoxDecoration(
-        //   gradient: const LinearGradient(
-        //     colors: [
-        //       Color.fromARGB(255, 103, 196, 250),
-        //       Color.fromARGB(255, 217, 213, 226)
-        //     ],
-        //     begin: Alignment.bottomRight,
-        //     end: Alignment.topLeft,
-        //   ),
-        //   borderRadius: BorderRadius.circular(10.0),
-        //   border: Border.all(
-        //     color: const Color.fromARGB(255, 166, 207, 187),
-        //     width: 1,
-        //   ),
-        // ),
         padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4.0),
         alignment: Alignment.centerLeft,
         child: const Text(
-          'Hello\n'
-          'John Doe',
+          'Hello,John',
           style: TextStyle(
             fontSize: 30,
             color: Colors.black,
@@ -270,17 +250,19 @@ class CatCard extends StatelessWidget {
      return Container(
       padding: const EdgeInsets.symmetric(horizontal: 22.0),
       child: Transform.translate(
-      offset: const Offset(0, -10),
+      offset: const Offset(0, 10),
       child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
             child: buildCard( 
+              "Icon(Icons.book, color: Colors.red)",
                 "Books")
                 ),
         const SizedBox(width: 10),
         Expanded(
             child: buildCard(
+              "Icon(Icons.book, color: Colors.white)",
                 "Videos")
                 ),
       ],
@@ -289,7 +271,7 @@ class CatCard extends StatelessWidget {
     );
   }
 
-    Widget buildCard(String title) {
+    Widget buildCard(String icon, String title) {
       return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 5,
@@ -323,12 +305,10 @@ class CatCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                
                 children: [
-                  Icon(Icons.book, color: Colors.red),
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),

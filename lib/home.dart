@@ -8,9 +8,22 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: 8),
+            //SizedBox(width: 100),
             Text('Home'),
+            
+            Icon(
+              Icons.search,
+               color: Colors.white,
+               size: 30
+               ),
+               Icon(
+              Icons.person,
+               color: Colors.white,
+               size: 30
+               ),
           ],
         ),
         titleTextStyle: const TextStyle(
@@ -34,7 +47,7 @@ class HomePage extends StatelessWidget {
             child: ImageSliderScreen(),
           ),
           SizedBox(
-            height: 70,
+            height: 90,
             child: Categories(),
           ),
           SizedBox(
@@ -243,88 +256,157 @@ class Categories extends StatelessWidget {
         ));
   }
 }
+
 class CatCard extends StatelessWidget {
   const CatCard({super.key});
   @override
   Widget build(BuildContext context) {
-     return Container(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 22.0),
       child: Transform.translate(
-      offset: const Offset(0, 10),
-      child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Expanded(
-            child: buildCard( 
-              "Icon(Icons.book, color: Colors.red)",
-                "Books")
+        offset: const Offset(0, -8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildCard(
+                  decoratedIcon(Icons.book, Colors.blue, Colors.white),
+                  secondIcon(Icons.person, Colors.grey, Colors.white),
+                    "5 New", "Books"),
+                const SizedBox(width: 10),
+                buildCard(
+                    decoratedIcon(Icons.mail, Colors.yellow, Colors.white),
+                    secondIcon(Icons.person, Colors.grey, Colors.white),
+                    "2 New",
+                    "Emails"),
+              ],
+            ),
+            const SizedBox(
+              width: 10,
+              height: 18,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildCard(
+                    decoratedIcon(Icons.video_library,
+                        const Color.fromARGB(255, 92, 185, 112), Colors.white),
+                        secondIcon(Icons.person, Colors.grey, Colors.white),
+                    "5 New",
+                    "Videos"),
+                const SizedBox(
+                  width: 10,
+                  height: 18,
                 ),
-        const SizedBox(width: 10),
-        Expanded(
-            child: buildCard(
-              "Icon(Icons.book, color: Colors.white)",
-                "Videos")
-                ),
-      ],
-      ),
+                buildCard(
+                    decoratedIcon(Icons.notifications_active,
+                        const Color.fromARGB(255, 145, 114, 233), Colors.white),
+                        secondIcon(Icons.person, Colors.grey, Colors.white),
+                    "2 New",
+                    "Alerts"),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 
-    Widget buildCard(String icon, String title) {
-      return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        elevation: 5,
-        child: Stack(
-          children: [
-            // ClipRRect(
-              
-            //   borderRadius: BorderRadius.circular(15),
-            //   child: Image.network(
-            //     imagePath,
-            //     fit: BoxFit.cover,
-            //     width: double.infinity,
-            //     height: 150,
-            //   ),
-            // ),
-            Container(
-              width: double.infinity,
-              height: 150,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [
-                Color.fromARGB(255, 103, 196, 250),
-                Color.fromARGB(255, 217, 213, 226)
-              ],
-              begin: Alignment.bottomRight,
-              end: Alignment.topLeft,
-            ),
-            borderRadius: BorderRadius.circular(15.0),
+  Widget decoratedIcon(IconData iconData, Color bgColor, Color iconColor) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(
+        iconData,
+        color: iconColor,
+        size: 20,
+      ),
+    );
+  }
+
+  Widget secondIcon(IconData iconData, Color bgColor, Color iconColor) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Icon(
+        iconData,
+        color: iconColor,
+        size: 20,
+      ),
+    );
+  }
+
+  Widget buildCard(Widget icon, Widget secondIcon, String subTitle, String title) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      elevation: 5,
+      child:
+          //children: [
+          // ClipRRect(
+
+          //   borderRadius: BorderRadius.circular(15),
+          //   child: Image.network(
+          //     imagePath,
+          //     fit: BoxFit.cover,
+          //     width: double.infinity,
+          //     height: 150,
+          //   ),
+          // ),
+          Container(
+        width: 155,
+        height: 160,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Color.fromARGB(255, 103, 196, 250),
+              Color.fromARGB(255, 217, 213, 226)
+            ],
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
           ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(Icons.favorite, color: Colors.red),
-                      Icon(Icons.share, color: Colors.white),
-                    ],
-                  ),
-                ],
-              ),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+            icon,
+            secondIcon,
+              ],
+            ),
+            Text(
+              subTitle,
+              style: const TextStyle(color: Colors.white),
+            ),
+            Text(
+              title,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(Icons.favorite, color: Colors.red),
+                Icon(Icons.share, color: Colors.white),
+              ],
             ),
           ],
         ),
-      );
-    }
+      ),
+    );
   }
+}

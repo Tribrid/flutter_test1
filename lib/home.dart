@@ -13,17 +13,12 @@ class HomePage extends StatelessWidget {
           children: [
             //SizedBox(width: 100),
             Text('Home'),
-            
-            Icon(
-              Icons.search,
-               color: Colors.white,
-               size: 30
-               ),
-               Icon(
-              Icons.person,
-               color: Colors.white,
-               size: 30
-               ),
+            Icon(Icons.search, color: Colors.white, size: 30),
+            SizedBox(
+              height: 50,
+              width: 50,
+              child: ProfileImage(),
+            ),
           ],
         ),
         titleTextStyle: const TextStyle(
@@ -32,8 +27,6 @@ class HomePage extends StatelessWidget {
         ),
         toolbarHeight: 75,
       ),
-      // child: ListView(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       body: ListView(
         children: const [
           SizedBox(height: 20),
@@ -57,6 +50,27 @@ class HomePage extends StatelessWidget {
       ),
     );
     // );
+  }
+}
+
+class ProfileImage extends StatelessWidget {
+  const ProfileImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: Image.network(
+            'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-169994-674010.jpg&fm=jpg',
+            width: 50,
+            height: 50,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -193,7 +207,7 @@ class _ImagesSliderScreenState extends State<ImageSliderScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 300,
+                width: 330,
                 height: 200,
                 margin: const EdgeInsets.only(top: 10.0),
                 decoration: BoxDecoration(
@@ -207,21 +221,21 @@ class _ImagesSliderScreenState extends State<ImageSliderScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 10),
-                    Text(
-                      _images[index]["title"]!,
-                      style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.normal),
-                    ),
+                    // const SizedBox(height: 10),
+                    // Text(
+                    //   _images[index]["title"]!,
+                    //   style: const TextStyle(
+                    //       fontSize: 19,
+                    //       fontWeight: FontWeight.bold,
+                    //       fontStyle: FontStyle.normal),
+                    // ),
                     const SizedBox(height: 10),
                     Text(
                       _images[index]["title2"]!,
                       style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
                           color: Colors.blue),
@@ -272,9 +286,10 @@ class CatCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 buildCard(
-                  decoratedIcon(Icons.book, Colors.blue, Colors.white),
-                  secondIcon(Icons.person, Colors.grey, Colors.white),
-                    "5 New", "Books"),
+                    decoratedIcon(Icons.book, Colors.blue, Colors.white),
+                    secondIcon(Icons.person, Colors.grey, Colors.white),
+                    "5 New",
+                    "Books"),
                 const SizedBox(width: 10),
                 buildCard(
                     decoratedIcon(Icons.mail, Colors.yellow, Colors.white),
@@ -293,7 +308,7 @@ class CatCard extends StatelessWidget {
                 buildCard(
                     decoratedIcon(Icons.video_library,
                         const Color.fromARGB(255, 92, 185, 112), Colors.white),
-                        secondIcon(Icons.person, Colors.grey, Colors.white),
+                    secondIcon(Icons.person, Colors.grey, Colors.white),
                     "5 New",
                     "Videos"),
                 const SizedBox(
@@ -303,7 +318,7 @@ class CatCard extends StatelessWidget {
                 buildCard(
                     decoratedIcon(Icons.notifications_active,
                         const Color.fromARGB(255, 145, 114, 233), Colors.white),
-                        secondIcon(Icons.person, Colors.grey, Colors.white),
+                    secondIcon(Icons.person, Colors.grey, Colors.white),
                     "2 New",
                     "Alerts"),
               ],
@@ -344,7 +359,8 @@ class CatCard extends StatelessWidget {
     );
   }
 
-  Widget buildCard(Widget icon, Widget secondIcon, String subTitle, String title) {
+  Widget buildCard(
+      Widget icon, Widget secondIcon, String subTitle, String title) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 5,
@@ -382,8 +398,8 @@ class CatCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-            icon,
-            secondIcon,
+                icon,
+                secondIcon,
               ],
             ),
             Text(

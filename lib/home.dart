@@ -271,8 +271,16 @@ class Categories extends StatelessWidget {
   }
 }
 
-class CatCard extends StatelessWidget {
+class CatCard extends StatefulWidget {
   const CatCard({super.key});
+
+  @override
+  //State<CatCard> createState() => _CatCardState();
+  _CatCardState createState() => _CatCardState();
+}
+
+class _CatCardState extends State<CatCard> {
+  Map<int, bool> favoriteStates = {};
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -286,12 +294,14 @@ class CatCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 buildCard(
+                    0,
                     decoratedIcon(Icons.book, Colors.blue, Colors.white),
                     secondIcon(Icons.person, Colors.grey, Colors.white),
                     "5 New",
                     "Books"),
                 const SizedBox(width: 10),
                 buildCard(
+                    1,
                     decoratedIcon(Icons.mail, Colors.yellow, Colors.white),
                     secondIcon(Icons.person, Colors.grey, Colors.white),
                     "2 New",
@@ -306,6 +316,7 @@ class CatCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 buildCard(
+                    2,
                     decoratedIcon(Icons.video_library,
                         const Color.fromARGB(255, 92, 185, 112), Colors.white),
                     secondIcon(Icons.person, Colors.grey, Colors.white),
@@ -316,6 +327,7 @@ class CatCard extends StatelessWidget {
                   height: 18,
                 ),
                 buildCard(
+                    3,
                     decoratedIcon(Icons.notifications_active,
                         const Color.fromARGB(255, 145, 114, 233), Colors.white),
                     secondIcon(Icons.person, Colors.grey, Colors.white),
@@ -359,8 +371,9 @@ class CatCard extends StatelessWidget {
     );
   }
 
-  Widget buildCard(
-      Widget icon, Widget secondIcon, String subTitle, String title) {
+  Widget buildCard(int index, Widget icon, Widget secondIcon, String subTitle,
+      String title) {
+    bool isFavorite = favoriteStates[index] ?? false;
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       elevation: 5,
@@ -413,11 +426,22 @@ class CatCard extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.favorite, color: Colors.red),
-                Icon(Icons.share, color: Colors.white),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      favoriteStates[index] = !(favoriteStates[index] ?? false);
+                    });
+                  },
+                  child: Icon(
+                    Icons.favorite,
+                    color: isFavorite ? Colors.red : Colors.white,
+                  ),
+                ),
+                //Icon(Icons.favorite, color: Colors.red),
+                const Icon(Icons.share, color: Colors.white),
               ],
             ),
           ],

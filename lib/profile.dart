@@ -12,10 +12,6 @@ class ContactPage extends StatelessWidget {
       appBar: AppBar(
         title: const Row(
           children: [
-            // Icon(
-            //   Icons.contact_page,
-            //   size: 30,
-            // ),
             SizedBox(width: 8),
             Text('Profile'),
           ],
@@ -27,33 +23,29 @@ class ContactPage extends StatelessWidget {
         toolbarHeight: 75,
       ),
       body: ListView(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        scrollDirection: Axis.vertical,
+        padding: const EdgeInsets.all(16),
         children: const [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                height: 200,
-                child: ProfileImage(),
-              ),
-              SizedBox(
-                height: 40,
-                child: UserName(),
-              ),
-              SizedBox(
-                height: 30,
-                child: Dashes(),
-              ),
-              SizedBox(
-                height: 70,
-                child: SocialsIcons(),
-              ),
-            ],
+          SizedBox(
+            height: 200,
+            child: ProfileImage(),
+          ),
+          SizedBox(
+            height: 40,
+            child: UserName(),
+          ),
+          SizedBox(
+            height: 20,
+            child: Dashes(),
+          ),
+          SizedBox(
+            height: 100,
+            child: SocialsIcons(),
           ),
         ],
       ),
+      //],
     );
+    //);
   }
 }
 
@@ -62,16 +54,14 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: Image.network(
-            'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-169994-674010.jpg&fm=jpg',
-            width: 150,
-            height: 150,
-            fit: BoxFit.cover,
-          ),
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: Image.network(
+          'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-169994-674010.jpg&fm=jpg',
+          width: 150,
+          height: 150,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -83,17 +73,13 @@ class UserName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Center(
-          child: Text(
-            'John Doe',
-            style: TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-              fontFamily: 'Courier',
-            ),
-          ),
+    return const Center(
+      child: Text(
+        'John Doe',
+        style: TextStyle(
+          fontSize: 25,
+          color: Colors.black,
+          fontFamily: 'Courier',
         ),
       ),
     );
@@ -105,16 +91,14 @@ class Dashes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Dash(
-          direction: Axis.horizontal,
-          length: 200,
-          dashLength: 10,
-          dashColor: Colors.blue,
-          dashThickness: 1.5,
-          dashGap: 5.0,
-        ),
+    return const Center(
+      child: Dash(
+        direction: Axis.horizontal,
+        length: 200,
+        dashLength: 10,
+        dashColor: Colors.blue,
+        dashThickness: 1.5,
+        dashGap: 5.0,
       ),
     );
   }

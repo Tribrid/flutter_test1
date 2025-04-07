@@ -28,16 +28,22 @@ class HomePage extends StatelessWidget {
         toolbarHeight: 75,
       ),
       body: ListView(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
         children: const [
           SizedBox(height: 20),
           Initial(),
+
+          // SizedBox(
+          //   height: 100,
+          //   child: ButtonHeading(),
+          // ),
+          // SizedBox(
+          //   height: 250,
+          //   child: ImageSliderScreen(),
+          // ),
           SizedBox(
-            height: 100,
-            child: ButtonHeading(),
-          ),
-          SizedBox(
-            height: 250,
-            child: ImageSliderScreen(),
+            height: 300,
+            child: TabScreen(),
           ),
           SizedBox(
             height: 90,
@@ -168,6 +174,61 @@ class ButtonHeading extends StatelessWidget {
   }
 }
 
+class TabScreen extends StatelessWidget {
+  const TabScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Transform.translate(
+        offset: const Offset(0, 19),
+      child: Column(
+        children: [
+          TabBar(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.black,
+            labelStyle: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Courier',
+            ),
+            //indicatorColor: Colors.blue,
+            indicator: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 103, 196, 250),
+                  Color.fromARGB(255, 217, 213, 226)
+                ],
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
+              ),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+
+            tabs: const [
+              Tab(text: "Overview"),
+              Tab(text: "Productivity"),
+            ],
+          ),
+          const SizedBox(
+            height: 250,
+            child: TabBarView(
+              children: [
+                Center(
+                  child: ImageSliderScreen(),
+                ),
+                Center(child: Text("Tab 2 Content")),
+              ],
+            ),
+          ),
+        ],
+      ),
+      ),
+    );
+  }
+}
+
 class ImageSliderScreen extends StatefulWidget {
   const ImageSliderScreen({super.key});
 
@@ -199,8 +260,7 @@ class _ImagesSliderScreenState extends State<ImageSliderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView.builder(
+    return  PageView.builder(
         itemCount: _images.length,
         itemBuilder: (context, index) {
           return Column(
@@ -215,41 +275,92 @@ class _ImagesSliderScreenState extends State<ImageSliderScreen> {
                     image: DecorationImage(
                       image: NetworkImage(_images[index]["image"]!),
                       fit: BoxFit.cover,
-                    )),
+                    ),
+                    ),
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // const SizedBox(height: 10),
-                    // Text(
-                    //   _images[index]["title"]!,
-                    //   style: const TextStyle(
-                    //       fontSize: 19,
-                    //       fontWeight: FontWeight.bold,
-                    //       fontStyle: FontStyle.normal),
-                    // ),
-                    const SizedBox(height: 10),
-                    Text(
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: const Duration(milliseconds: 100),
+                        pageBuilder: (_, __, ___) => FullScreenGalleryView(
+                          images: _images.map((img)=> img['image']!).toList(),
+                          initialIndex: index,
+                        ),
+                      ),
+                    );
+                  },    
+                    child: Text(
                       _images[index]["title2"]!,
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                          color: Colors.blue),
+                          color: Colors.blue
+                          ),
                     ),
-                  ],
                 ),
-              ),
+                ),
             ],
           );
         },
+    );
+  }
+  }
+
+class FullScreenGalleryView extends StatefulWidget{
+  final List<String> images;
+  final int initialIndex;
+
+  const FullScreenGalleryView({
+    super.key,
+    required this.images,
+    required this.initialIndex,
+  });
+
+  @override
+  State<FullScreenGalleryView> createState() => _FullScreenGalleryViewState();
+}
+
+class _FullScreenGalleryViewState extends State<FullScreenGalleryView> {
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: widget.initialIndex);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context)
+  {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: PageView.builder(
+          controller: _pageController,
+          itemCount: widget.images.length,
+          itemBuilder: (context, index) {
+            return InteractiveViewer(
+              child: Center(
+                child: Image.network(
+                  widget.images[index],
+                  fit: BoxFit.contain,
+                ),
+                ),
+            );
+          },
+        ),
       ),
     );
   }
-}
+} 
+
 
 class Categories extends StatelessWidget {
   const Categories({super.key});
@@ -284,7 +395,7 @@ class _CatCardState extends State<CatCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 22.0),
+      //padding: const EdgeInsets.symmetric(horizontal: 22.0),
       child: Transform.translate(
         offset: const Offset(0, -8),
         child: Column(
